@@ -9,6 +9,7 @@ namespace api.Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public int ProfessorFkey { get; set; }
+        public Professor? ProfessorFkey { get; set; }
+        public List<ProjectGroupProject> ProjectGroupProjects { get; set ;} = new List<ProjectGroupProject>();
     }
 }

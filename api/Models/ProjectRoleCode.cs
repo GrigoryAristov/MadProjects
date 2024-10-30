@@ -9,6 +9,7 @@ namespace api.Models
     {
         public int Id { get; set; }
         public string ProjectRole { get; set; } = string.Empty;
+        public List<UserProject> UserProjects { get; set; } = new List<UserProject>();
         
     }
 }

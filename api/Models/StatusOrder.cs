@@ -7,8 +7,9 @@ namespace api.Models
 {
     public class StatusOrder
     {
-        public int StatusFkey { get; set; }
-        public int SprintFkey { get; set; }
+        public int Id { get; set; }
+        public Status? StatusFkey { get; set; }
+        public Sprint? SprintFkey { get; set; }
         public int Order { get; set; }
     }
 }

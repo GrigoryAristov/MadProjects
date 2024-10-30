@@ -8,7 +8,7 @@ namespace api.Models
     public class Repository
     {
         public int Id { get; set; }
-        public int ProjectFkey { get; set; }
+        public Project? ProjectFkey { get; set; }
         public string URL { get; set; } = string.Empty;
     }
 }

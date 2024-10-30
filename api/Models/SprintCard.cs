@@ -7,7 +7,8 @@ namespace api.Models
 {
     public class SprintCard
     {
-        public int SprintFkey { get; set; }
-        public int CardFkey { get; set; }
+        public int Id { get; set; }
+        public Sprint? SprintFkey { get; set; }
+        public Card? CardFkey { get; set; }
     }
 }

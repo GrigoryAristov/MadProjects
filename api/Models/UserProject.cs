@@ -7,8 +7,9 @@ namespace api.Models
 {
     public class UserProject
     {
-        public int UserFkey { get; set; }
-        public int ProjectFkey { get; set; }
-        public int ProjectRoleCodeFkey { get; set; }
+        public int Id { get; set; }
+        public User? UserFkey { get; set; }
+        public Project? ProjectFkey { get; set; }
+        public ProjectRoleCode? ProjectRoleCodeFkey { get; set; }
     }
 }

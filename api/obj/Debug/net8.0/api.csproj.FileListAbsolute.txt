@@ -109,3 +109,4 @@ D:\desKtop_trash\MadProjects\api\obj\Debug\net8.0\refint\api.dll
 D:\desKtop_trash\MadProjects\api\obj\Debug\net8.0\api.pdb
 D:\desKtop_trash\MadProjects\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 D:\desKtop_trash\MadProjects\api\obj\Debug\net8.0\ref\api.dll
+D:\desKtop_trash\MadProjects\api\obj\Debug\net8.0\api.sourcelink.json

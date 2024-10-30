@@ -7,8 +7,9 @@ namespace api.Models
 {
     public class Student
     {
-        public int IdFkey { get; set; }
+        public int Id { get; set; }
         public string GitHub { get; set; } = string.Empty;
-        public int GroupFkey { get; set; }
+        public Group? GroupFkey { get; set; }
+        public User? IdFkey { get; set; }
     }
 }
