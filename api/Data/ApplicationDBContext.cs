@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace api.Data
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDBContext : IdentityDbContext
     {
         public ApplicationDBContext(DbContextOptions dbContextOptions)
         : base(dbContextOptions)
@@ -16,6 +18,27 @@ namespace api.Data
 
         }
         
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            List<IdentityRole> roles = new List<IdentityRole>
+            {
+                //Create Roles
+                new IdentityRole
+                {
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                new IdentityRole
+                {
+                    Name = "User",
+                    NormalizedName = "USER"
+                },
+            };
+            builder.Entity<IdentityRole>().HasData(roles);
+        }
+
         //Create tables in Db
         public DbSet<Card> Cards {get; set; }
         public DbSet<CardOrder> CardOrders {get; set; }
@@ -26,7 +49,7 @@ namespace api.Data
         public DbSet<ProjectGroup> ProjectGroups {get; set; }
         public DbSet<ProjectGroupProject> ProjectGroupProjects {get; set; }
         public DbSet<ProjectRoleCode> ProjectRoleCodes {get; set; }
-        public DbSet<Repository> Repositories {get; set; }
+        public DbSet<Repo> Repositories {get; set; }
         public DbSet<RoleCode> RoleCodes {get; set; }
         public DbSet<Sprint> Sprints {get; set; }
         public DbSet<SprintCard> SprintCards {get; set; }

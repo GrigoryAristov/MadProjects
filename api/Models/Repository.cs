@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace api.Models
 {
-    public class Repository
+    public class Repo
     {
         public int Id { get; set; }
-        public Project? ProjectFkey { get; set; }
         public string URL { get; set; } = string.Empty;
+        public int? ProjectId { get; set;}
+        public Project? Project { get; set; }
     }
 }

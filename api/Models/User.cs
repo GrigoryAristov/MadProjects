@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace api.Models
 {
-    public class User
+    public class User:IdentityUser
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Mail { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
+        //override maybe?
+        //public int UserId { get; set; }
+        // public string Name { get; set; } = string.Empty;
+        // public string Mail { get; set; } = string.Empty;
+        // public string Password { get; set; } = string.Empty;
         public List<Professor> Professors { get; set; } = new List<Professor>();
         public List<Student> Students { get; set; } = new List<Student>();
         public List<UserProject> UserProjects { get; set; } = new List<UserProject>();
