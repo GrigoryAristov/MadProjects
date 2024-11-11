@@ -262,20 +262,20 @@ namespace api.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DegreeCodeFkeyId = table.Column<int>(type: "integer", nullable: true),
-                    IdFkeyId = table.Column<string>(type: "text", nullable: true)
+                    DegreeCodeId = table.Column<int>(type: "integer", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Professors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Professors_AspNetUsers_IdFkeyId",
-                        column: x => x.IdFkeyId,
+                        name: "FK_Professors_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Professors_DegreeCodes_DegreeCodeFkeyId",
-                        column: x => x.DegreeCodeFkeyId,
+                        name: "FK_Professors_DegreeCodes_DegreeCodeId",
+                        column: x => x.DegreeCodeId,
                         principalTable: "DegreeCodes",
                         principalColumn: "Id");
                 });
@@ -341,8 +341,10 @@ namespace api.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: true),
+                    ProjectId = table.Column<int>(type: "integer", nullable: true),
+                    ProjectRoleId = table.Column<int>(type: "integer", nullable: true),
                     UserFkeyId = table.Column<string>(type: "text", nullable: true),
-                    ProjectFkeyId = table.Column<int>(type: "integer", nullable: true),
                     ProjectRoleCodeFkeyId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -359,8 +361,8 @@ namespace api.Migrations
                         principalTable: "ProjectRoleCodes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_UserProjects_Projects_ProjectFkeyId",
-                        column: x => x.ProjectFkeyId,
+                        name: "FK_UserProjects_Projects_ProjectId",
+                        column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id");
                 });
@@ -409,8 +411,9 @@ namespace api.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    GroupFkeyId = table.Column<int>(type: "integer", nullable: true),
-                    ProjectFkeyId = table.Column<int>(type: "integer", nullable: true)
+                    GroupId = table.Column<int>(type: "integer", nullable: true),
+                    ProjectId = table.Column<int>(type: "integer", nullable: true),
+                    GroupFkeyId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -421,8 +424,8 @@ namespace api.Migrations
                         principalTable: "ProjectGroups",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ProjectGroupProjects_Projects_ProjectFkeyId",
-                        column: x => x.ProjectFkeyId,
+                        name: "FK_ProjectGroupProjects_Projects_ProjectId",
+                        column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id");
                 });
@@ -533,8 +536,8 @@ namespace api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "d3451138-b69f-4aa3-aca7-c1b9810448c0", null, "Admin", "ADMIN" },
-                    { "e8dc5b03-0be5-4369-9b8b-f3f7809a7771", null, "User", "USER" }
+                    { "b5ca3e42-cc61-47db-8ad1-77cb35fd089e", null, "User", "USER" },
+                    { "c5d7d274-16a0-4ed8-8e0b-7756b2572e45", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -600,14 +603,14 @@ namespace api.Migrations
                 column: "UserFkeyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Professors_DegreeCodeFkeyId",
+                name: "IX_Professors_DegreeCodeId",
                 table: "Professors",
-                column: "DegreeCodeFkeyId");
+                column: "DegreeCodeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Professors_IdFkeyId",
+                name: "IX_Professors_UserId",
                 table: "Professors",
-                column: "IdFkeyId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectGroupProjects_GroupFkeyId",
@@ -615,9 +618,9 @@ namespace api.Migrations
                 column: "GroupFkeyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectGroupProjects_ProjectFkeyId",
+                name: "IX_ProjectGroupProjects_ProjectId",
                 table: "ProjectGroupProjects",
-                column: "ProjectFkeyId");
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectGroups_ProfessorFkeyId",
@@ -675,9 +678,9 @@ namespace api.Migrations
                 column: "IdFkeyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserProjects_ProjectFkeyId",
+                name: "IX_UserProjects_ProjectId",
                 table: "UserProjects",
-                column: "ProjectFkeyId");
+                column: "ProjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserProjects_ProjectRoleCodeFkeyId",

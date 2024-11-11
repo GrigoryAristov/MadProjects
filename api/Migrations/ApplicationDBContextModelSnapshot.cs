@@ -50,13 +50,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d3451138-b69f-4aa3-aca7-c1b9810448c0",
+                            Id = "c5d7d274-16a0-4ed8-8e0b-7756b2572e45",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e8dc5b03-0be5-4369-9b8b-f3f7809a7771",
+                            Id = "b5ca3e42-cc61-47db-8ad1-77cb35fd089e",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -344,17 +344,17 @@ namespace api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("DegreeCodeFkeyId")
+                    b.Property<int?>("DegreeCodeId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("IdFkeyId")
+                    b.Property<string>("UserId")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DegreeCodeFkeyId");
+                    b.HasIndex("DegreeCodeId");
 
-                    b.HasIndex("IdFkeyId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Professors");
                 });
@@ -429,14 +429,17 @@ namespace api.Migrations
                     b.Property<int?>("GroupFkeyId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ProjectFkeyId")
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ProjectId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GroupFkeyId");
 
-                    b.HasIndex("ProjectFkeyId");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("ProjectGroupProjects");
                 });
@@ -646,18 +649,24 @@ namespace api.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ProjectFkeyId")
+                    b.Property<int?>("ProjectId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("ProjectRoleCodeFkeyId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ProjectRoleId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("UserFkeyId")
                         .HasColumnType("text");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectFkeyId");
+                    b.HasIndex("ProjectId");
 
                     b.HasIndex("ProjectRoleCodeFkeyId");
 
@@ -761,17 +770,17 @@ namespace api.Migrations
 
             modelBuilder.Entity("api.Models.Professor", b =>
                 {
-                    b.HasOne("api.Models.DegreeCode", "DegreeCodeFkey")
+                    b.HasOne("api.Models.DegreeCode", "DegreeCode")
                         .WithMany("Professors")
-                        .HasForeignKey("DegreeCodeFkeyId");
+                        .HasForeignKey("DegreeCodeId");
 
-                    b.HasOne("api.Models.User", "IdFkey")
+                    b.HasOne("api.Models.User", "User")
                         .WithMany("Professors")
-                        .HasForeignKey("IdFkeyId");
+                        .HasForeignKey("UserId");
 
-                    b.Navigation("DegreeCodeFkey");
+                    b.Navigation("DegreeCode");
 
-                    b.Navigation("IdFkey");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("api.Models.ProjectGroup", b =>
@@ -791,7 +800,7 @@ namespace api.Migrations
 
                     b.HasOne("api.Models.Project", "ProjectFkey")
                         .WithMany("ProjectGroupProjects")
-                        .HasForeignKey("ProjectFkeyId");
+                        .HasForeignKey("ProjectId");
 
                     b.Navigation("GroupFkey");
 
@@ -880,7 +889,7 @@ namespace api.Migrations
                 {
                     b.HasOne("api.Models.Project", "ProjectFkey")
                         .WithMany("UserProjects")
-                        .HasForeignKey("ProjectFkeyId");
+                        .HasForeignKey("ProjectId");
 
                     b.HasOne("api.Models.ProjectRoleCode", "ProjectRoleCodeFkey")
                         .WithMany("UserProjects")
