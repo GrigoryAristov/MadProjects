@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace api.Models
 {
-    public class Group
+    public class StudentGroup
     {
         public int Id { get; set; }
         public string Number { get; set; } = string.Empty;

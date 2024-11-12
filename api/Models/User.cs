@@ -13,6 +13,7 @@ namespace api.Models
         public List<UserProject> UserProjects { get; set; } = new List<UserProject>();
         public List<Sprint> Sprints { get; set; } = new List<Sprint>();
         public List<Card> Cards { get; set; } = new List<Card>();
+        public int? RoleCodeId { get; set; }
         public RoleCode? RoleCodeFkey { get; set; }
     }
 }

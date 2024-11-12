@@ -37,25 +37,15 @@ namespace api.Repository
             return rolecodeModel;
         }
 
-        public Task<List<RoleCode>> GetAllAsync()
+        public async Task<List<RoleCode>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.RoleCodes.Include(c => c.Users).ToListAsync();
         }
 
-        public Task<RoleCode?> GetByIdAsync(int id)
+        public async Task<RoleCode?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.RoleCodes.Include(c => c.Users).FirstOrDefaultAsync(i => i.Id == id);
         }
-
-        // public async Task<List<RoleCode>> GetAllAsync()
-        // {
-        //     return await _context.RoleCodes.Include(c => c.Users).ToList();
-        // }
-
-        // public Task<RoleCode?> GetByIdAsync(int id)
-        // {
-        //     return await _context.RoleCodes.Include(c => c.Users).FirstOrDefaultAsync(i => i.Id == id);
-        // }
 
         public Task<bool> RoleCodeExists(int id)
         {

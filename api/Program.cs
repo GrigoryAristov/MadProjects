@@ -103,6 +103,9 @@ builder.Services.AddScoped<IRepoRepository, RepoRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IDegreeRepository, DegreeRepository>();
 builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
+builder.Services.AddScoped<IRoleCodeRepository, RoleCodeRepository>();
+builder.Services.AddScoped<IGroupRepository, GroupRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 
 var app = builder.Build();

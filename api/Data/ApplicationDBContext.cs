@@ -43,7 +43,7 @@ namespace api.Data
         public DbSet<Card> Cards {get; set; }
         public DbSet<CardOrder> CardOrders {get; set; }
         public DbSet<DegreeCode> DegreeCodes {get; set; }
-        public DbSet<Group> Groups { get; set; }
+        public DbSet<StudentGroup> Groups { get; set; }
         public DbSet<Professor> Professors {get; set; }
         public DbSet<Project> Projects {get; set; }
         public DbSet<ProjectGroup> ProjectGroups {get; set; }
