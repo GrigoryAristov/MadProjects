@@ -12,6 +12,10 @@ using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+// Настройка прослушивания всех сетевых интерфейсов
+
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
@@ -107,6 +111,27 @@ builder.Services.AddScoped<IRoleCodeRepository, RoleCodeRepository>();
 builder.Services.AddScoped<IGroupRepository, GroupRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
+builder.WebHost.UseUrls("http://0.0.0.0:5000");
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
+// HTTPS settings
+// builder.WebHost.UseKestrel(options =>
+// {
+//     options.ListenAnyIP(5000);   // HTTP порт
+//     options.ListenAnyIP(443, listenOptions =>
+//     {
+//         listenOptions.UseHttps("path_to_cert.pfx", "188348");
+//     });
+// });
 
 var app = builder.Build();
 
@@ -117,7 +142,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -125,6 +150,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+app.MapGet("/", () => "Hello, World!");
 
 app.Run();
 

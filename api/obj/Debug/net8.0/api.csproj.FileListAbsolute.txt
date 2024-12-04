@@ -256,3 +256,8 @@ D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens
 D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
 D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\out\web.config
+D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\out\api.deps.json
+D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\out\api.runtimeconfig.json
+D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\out\appsettings.Development.json
+D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\out\appsettings.json

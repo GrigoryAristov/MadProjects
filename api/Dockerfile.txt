@@ -1,0 +1,26 @@
+# Укажите образ для сборки
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+WORKDIR /api
+
+# Копируем проект и восстанавливаем зависимости
+COPY *.csproj ./
+RUN dotnet restore
+
+# Копируем остальные файлы и собираем релиз
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Укажите образ для выполнения
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /api
+COPY --from=build-env /api/out .
+
+# Укажите порт для приложения
+EXPOSE 5000
+
+# RUN dotnet ef migrations add init
+
+# RUN dotnet ef database update
+
+# Укажите команду для запуска приложения
+ENTRYPOINT ["dotnet", "api.dll"]
