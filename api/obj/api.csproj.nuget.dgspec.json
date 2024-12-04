@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Greg\\Desktop\\MadProjects\\api\\api.csproj": {}
+    "D:\\desKtop_trash\\MadProjects\\api\\api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Greg\\Desktop\\MadProjects\\api\\api.csproj": {
+    "D:\\desKtop_trash\\MadProjects\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Greg\\Desktop\\MadProjects\\api\\api.csproj",
+        "projectUniqueName": "D:\\desKtop_trash\\MadProjects\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\Greg\\Desktop\\MadProjects\\api\\api.csproj",
-        "packagesPath": "C:\\Users\\Greg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Greg\\Desktop\\MadProjects\\api\\obj\\",
+        "projectPath": "D:\\desKtop_trash\\MadProjects\\api\\api.csproj",
+        "packagesPath": "C:\\Users\\greg\\.nuget\\packages\\",
+        "outputPath": "D:\\desKtop_trash\\MadProjects\\api\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Users\\greg\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Greg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\greg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\greg\\AppData\\Roaming\\NuGet\\config\\Godot.Offline.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
