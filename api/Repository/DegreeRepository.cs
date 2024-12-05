@@ -43,7 +43,7 @@ namespace api.Repository
 
         public async Task<List<DegreeCode>> GetAllAsync()
         {
-            return await _context.DegreeCodes.ToListAsync();
+            return await _context.DegreeCodes.Include(c => c.Professors).ToListAsync();
         }
 
         public async Task<DegreeCode?> GetByIdAsync(int id)

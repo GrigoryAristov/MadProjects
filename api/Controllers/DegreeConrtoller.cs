@@ -12,11 +12,11 @@ namespace api.Controllers
 {
     [Route("api/degree")]
     [ApiController]
-    public class DegreeConrtoller : ControllerBase
+    public class Degree : ControllerBase
     {
         private readonly ApplicationDBContext _context;
         private readonly IDegreeRepository _degreeRepo;
-        public DegreeConrtoller(ApplicationDBContext context, IDegreeRepository degreeRepo)
+        public Degree(ApplicationDBContext context, IDegreeRepository degreeRepo)
         {
             _context = context;
             _degreeRepo = degreeRepo;

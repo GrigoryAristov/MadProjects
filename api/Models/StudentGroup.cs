@@ -9,6 +9,8 @@ namespace api.Models
     {
         public int Id { get; set; }
         public string Number { get; set; } = string.Empty;
+        // public int? StudentId { get; set; }
+        // public Student? Student { get; set; }
         public List<Student> Students { get; set; } = new List<Student>();
     }
 }

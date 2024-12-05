@@ -110,8 +110,9 @@ builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 builder.Services.AddScoped<IRoleCodeRepository, RoleCodeRepository>();
 builder.Services.AddScoped<IGroupRepository, GroupRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-builder.WebHost.UseUrls("http://0.0.0.0:5000");
+// builder.WebHost.UseUrls("http://0.0.0.0:5000");
 
 builder.Services.AddCors(options =>
 {
@@ -124,14 +125,14 @@ builder.Services.AddCors(options =>
 });
 
 // HTTPS settings
-builder.WebHost.UseKestrel(options =>
-{
-    options.ListenAnyIP(5000);   // HTTP порт
-    options.ListenAnyIP(5050, listenOptions =>
-    {
-        listenOptions.UseHttps("/home/keystore.p12", "188348");
-    });
-});
+// builder.WebHost.UseKestrel(options =>
+// {
+//     options.ListenAnyIP(5000);   // HTTP порт
+//     options.ListenAnyIP(5050, listenOptions =>
+//     {
+//         listenOptions.UseHttps("/home/keystore.p12", "188348");
+//     });
+// });
 
 var app = builder.Build();
 

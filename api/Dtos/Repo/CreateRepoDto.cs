@@ -11,6 +11,6 @@ namespace api.Dtos.Repo
         [Required]
         [MinLength(5)]
         public string URL { get; set; } = string.Empty;
-        public int? ProjectId { get; set;}
+        // public int? ProjectId { get; set;}
     }
 }

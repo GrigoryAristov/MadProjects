@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Group;
+using api.Helpers;
 using api.Interfaces;
 using api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -35,9 +36,10 @@ namespace api.Repository
             return groupModel;
         }
 
-        public async Task<List<StudentGroup>> GetAllAsync()
+        public async Task<List<StudentGroup>> GetAllAsync(Pagination pagination)
         {
-            return await _context.Groups.ToListAsync();
+            var skipNumber = (pagination.PageNumber - 1) * pagination.PageSize;
+            return await _context.Groups.Include(c => c.Students).Skip(skipNumber).Take(pagination.PageSize).ToListAsync();
         }
 
         public async Task<StudentGroup?> GetByIdAsync(int id)

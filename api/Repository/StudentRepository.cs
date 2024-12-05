@@ -47,7 +47,7 @@ namespace api.Repository
 
         public async Task<Student?> UpdateAsync(int id, Student studentModel)
         {
-             var existingStudent = await _context.Students.FindAsync(id);
+            var existingStudent = await _context.Students.FindAsync(id);
 
             if(existingStudent == null)
             {

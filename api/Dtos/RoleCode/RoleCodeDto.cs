@@ -10,6 +10,6 @@ namespace api.Dtos.RoleCode
     {
         public int Id { get; set; }
         public string Role { get; set; } = string.Empty;
-        public List<User> Users { get; set; }
+        // public List<User> Users { get; set; }
     }
 }
