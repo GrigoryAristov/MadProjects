@@ -124,14 +124,14 @@ builder.Services.AddCors(options =>
 });
 
 // HTTPS settings
-// builder.WebHost.UseKestrel(options =>
-// {
-//     options.ListenAnyIP(5000);   // HTTP порт
-//     options.ListenAnyIP(443, listenOptions =>
-//     {
-//         listenOptions.UseHttps("path_to_cert.pfx", "188348");
-//     });
-// });
+builder.WebHost.UseKestrel(options =>
+{
+    options.ListenAnyIP(5000);   // HTTP порт
+    options.ListenAnyIP(5050, listenOptions =>
+    {
+        listenOptions.UseHttps("/home/keystore.p12", "188348");
+    });
+});
 
 var app = builder.Build();
 
@@ -142,7 +142,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
