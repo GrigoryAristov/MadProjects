@@ -21,7 +21,6 @@ namespace api.Service
         {
             _config = config;
             var secretsPath = "/home/secrets.json";
-
             var secrets = JObject.Parse(File.ReadAllText(secretsPath));
             var signingKey = secrets["JWT"]?["SigningKey"]?.ToString();
 

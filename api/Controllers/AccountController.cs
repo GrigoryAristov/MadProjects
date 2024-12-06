@@ -53,6 +53,10 @@ namespace api.Controllers
                             {
                                 Id = appUser.Id,
                                 UserName = appUser.UserName,
+                                Firstname = appUser.Firstname,
+                                Secondname = appUser.Secondname,
+                                LastName = appUser.LastName,
+                                Group = appUser.Group,
                                 Email = appUser.Email,
                                 Token = _tokenService.CreateToken(appUser)
                             }
@@ -92,11 +96,6 @@ namespace api.Controllers
                 new NewUserDto
                 {
                     Id = user.Id,
-                    UserName = user.UserName,
-                    Firstname = user.Firstname,
-                    Secondname = user.Secondname,
-                    LastName = user.LastName,
-                    Group = user.Group,
                     Email = user.Email,
                     Token = _tokenService.CreateToken(user)
                 }
