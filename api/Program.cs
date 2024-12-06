@@ -15,7 +15,7 @@ using Newtonsoft.Json.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var secretsPath = "secrets.json";
+var secretsPath = "/home/secrets.json";
 
 var secrets = JObject.Parse(File.ReadAllText(secretsPath));
 
@@ -28,8 +28,8 @@ var certPassword = secrets["Certificate"]?["Password"]?.ToString();
 
 // var certificate = new X509Certificate2(certPath, certPassword);
 
-// var certPath = Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["Certificate:Path"]);
-// var certificate = new X509Certificate2(certPath, certPassword);
+var certPath = Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["Certificate:Path"]);
+var certificate = new X509Certificate2(certPath, certPassword);
 
 
 // Add services to the container.
@@ -160,14 +160,14 @@ builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // HTTPS settings
-// builder.WebHost.UseKestrel(options =>
-// {
-//     options.ListenAnyIP(5050);   // HTTP порт
-//     options.ListenAnyIP(5000, listenOptions =>
-//     {
-//         listenOptions.UseHttps(certificate);
-//     });
-// });
+builder.WebHost.UseKestrel(options =>
+{
+    options.ListenAnyIP(5050);   // HTTP порт
+    options.ListenAnyIP(5000, listenOptions =>
+    {
+        listenOptions.UseHttps(certificate);
+    });
+});
 
 
 builder.Services.AddCors(options =>
