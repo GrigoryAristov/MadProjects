@@ -23,7 +23,7 @@ namespace api.Controllers
             //_projectRepo = projectRepo;
         }
         [HttpGet]
-        // [Authorize]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             if(!ModelState.IsValid)
