@@ -20,7 +20,7 @@ var secretsPath = "/home/secrets.json";
 var secrets = JObject.Parse(File.ReadAllText(secretsPath));
 
 var dbPassword = secrets["Database"]?["Password"]?.ToString();
-var jwtSigningKey = secrets["JWT"]?["SigningKey"]?.ToString();
+var signingKey = secrets["JWT"]?["SigningKey"]?.ToString();
 var certPassword = secrets["Certificate"]?["Password"]?.ToString();
 
 // var certPath = Path.Combine(builder.Environment.ContentRootPath, "/home/keystore.p12");
@@ -125,7 +125,6 @@ builder.Services.AddAuthentication(options =>
     options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
-    var signingKey = secrets["JWT"]?["SigningKey"]?.ToString();
 
     if (string.IsNullOrEmpty(signingKey))
     {

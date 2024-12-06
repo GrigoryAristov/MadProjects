@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using api.Interfaces;
 using api.Models;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 
 namespace api.Service
 {
@@ -19,7 +20,12 @@ namespace api.Service
         public TokenService(IConfiguration config)
         {
             _config = config;
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));
+            var secretsPath = "/home/secrets.json";
+
+            var secrets = JObject.Parse(File.ReadAllText(secretsPath));
+            var signingKey = secrets["JWT"]?["SigningKey"]?.ToString();
+
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey));
         }
         public string CreateToken(User user)
         {
