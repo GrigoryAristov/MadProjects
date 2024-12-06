@@ -31,7 +31,7 @@ namespace api.Repository
 
         public async Task<List<User>> GetAllAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include(u => u.RoleCodes).ToListAsync();
         }
 
         public async Task<User?> UpdateAsync(string id, User userModel)

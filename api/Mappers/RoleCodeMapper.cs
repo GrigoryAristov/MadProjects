@@ -14,7 +14,6 @@ namespace api.Mappers
             return new RoleCodeDto
             {
                 Role = rolecodeModel.Role,
-                //Users = rolecodeModel.Users.Select(c => c.ToUserDto()).ToList()
             };
         }
 

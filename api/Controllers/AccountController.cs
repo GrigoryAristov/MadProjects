@@ -34,6 +34,10 @@ namespace api.Controllers
                 var appUser = new User
                 {
                     UserName = registerDto.Username,
+                    Firstname = registerDto.Firstname,
+                    Secondname = registerDto.Secondname,
+                    LastName = registerDto.LastName,
+                    Group = registerDto.Group,
                     Email = registerDto.Email
                 };
 
@@ -47,6 +51,7 @@ namespace api.Controllers
                         return Ok(
                             new NewUserDto
                             {
+                                Id = appUser.Id,
                                 UserName = appUser.UserName,
                                 Email = appUser.Email,
                                 Token = _tokenService.CreateToken(appUser)
@@ -88,6 +93,10 @@ namespace api.Controllers
                 {
                     Id = user.Id,
                     UserName = user.UserName,
+                    Firstname = user.Firstname,
+                    Secondname = user.Secondname,
+                    LastName = user.LastName,
+                    Group = user.Group,
                     Email = user.Email,
                     Token = _tokenService.CreateToken(user)
                 }

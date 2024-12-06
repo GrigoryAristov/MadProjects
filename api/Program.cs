@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using api.Data;
 using api.Interfaces;
 using api.Models;
@@ -9,11 +11,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var secretsPath = "/home/secrets.json";
 
-// Настройка прослушивания всех сетевых интерфейсов
+var secrets = JObject.Parse(File.ReadAllText(secretsPath));
+
+var dbPassword = secrets["Database"]?["Password"]?.ToString();
+var jwtSigningKey = secrets["JWT"]?["SigningKey"]?.ToString();
+var certPassword = secrets["Certificate"]?["Password"]?.ToString();
+
+// var certPath = Path.Combine(builder.Environment.ContentRootPath, "/home/keystore.p12");
+// var certPassword = "188348";
+
+// var certificate = new X509Certificate2(certPath, certPassword);
+
+var certPath = Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["Certificate:Path"]);
+var certificate = new X509Certificate2(certPath, certPassword);
 
 
 // Add services to the container.
@@ -59,7 +75,9 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>{
     //SQL Server
     //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     //Postgres
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    var baseConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    var fullConnectionString = $"{baseConnectionString};Password={dbPassword}";
+    options.UseNpgsql(fullConnectionString);
     //Db connection settings
 });
 
@@ -74,6 +92,29 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 })
 .AddEntityFrameworkStores<ApplicationDBContext>();
 
+// builder.Services.AddAuthentication(options =>
+// {
+//     options.DefaultAuthenticateScheme =
+//     options.DefaultChallengeScheme =
+//     options.DefaultForbidScheme =
+//     options.DefaultScheme =
+//     options.DefaultSignInScheme =
+//     options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+// }).AddJwtBearer(options =>
+// {
+//     options.TokenValidationParameters = new TokenValidationParameters
+//     {
+//         ValidateIssuer = true,
+//         ValidIssuer = builder.Configuration["JWT:Issuer"],
+//         ValidateAudience = true,
+//         ValidAudience = builder.Configuration["JWT:Audience"],
+//         ValidateIssuerSigningKey = true,
+//         IssuerSigningKey = new SymmetricSecurityKey(
+//             System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKeyPath"])
+//         )
+//     };
+// });
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme =
@@ -84,20 +125,27 @@ builder.Services.AddAuthentication(options =>
     options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
+    var signingKey = secrets["JWT"]?["SigningKey"]?.ToString();
+
+    if (string.IsNullOrEmpty(signingKey))
+    {
+        throw new InvalidOperationException("JWT SigningKey not found in secrets.json");
+    }
+
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidIssuer = builder.Configuration["JWT:Issuer"],
+
         ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:Audience"],
+
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(
-            System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])
-        )
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
+
+        ValidateLifetime = true
     };
 });
-
-
 
 //injections
 //builder.Services.AddScoped<IStockRepository, StockRepository>();
@@ -112,7 +160,16 @@ builder.Services.AddScoped<IGroupRepository, GroupRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-builder.WebHost.UseUrls("http://0.0.0.0:5000");
+// HTTPS settings
+builder.WebHost.UseKestrel(options =>
+{
+    options.ListenAnyIP(5050);   // HTTP порт
+    options.ListenAnyIP(5000, listenOptions =>
+    {
+        listenOptions.UseHttps(certificate);
+    });
+});
+
 
 builder.Services.AddCors(options =>
 {
@@ -124,15 +181,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-// HTTPS settings
-// builder.WebHost.UseKestrel(options =>
-// {
-//     options.ListenAnyIP(5000);   // HTTP порт
-//     options.ListenAnyIP(5050, listenOptions =>
-//     {
-//         listenOptions.UseHttps("/home/keystore.p12", "188348");
-//     });
-// });
 
 var app = builder.Build();
 

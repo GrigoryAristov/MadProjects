@@ -48,8 +48,8 @@ namespace api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateRoleCodeRequestDto rolecodeDto)
         {
-            var rolecodeRepo = rolecodeDto.ToRoleCodeFromCreateDto();
-            await _rolecodeRepo.CreateAsync(rolecodeRepo);
+            var rolecodeModel = rolecodeDto.ToRoleCodeFromCreateDto();
+            await _rolecodeRepo.CreateAsync(rolecodeModel);
             return Ok();
         }
 

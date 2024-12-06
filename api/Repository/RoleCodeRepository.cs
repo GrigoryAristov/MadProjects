@@ -39,12 +39,12 @@ namespace api.Repository
 
         public async Task<List<RoleCode>> GetAllAsync()
         {
-            return await _context.RoleCodes.Include(c => c.Users).ToListAsync();
+            return await _context.RoleCodes.ToListAsync();
         }
 
         public async Task<RoleCode?> GetByIdAsync(int id)
         {
-            return await _context.RoleCodes.Include(c => c.Users).FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.RoleCodes.FirstOrDefaultAsync(i => i.Id == id);
         }
 
         public Task<bool> RoleCodeExists(int id)

@@ -261,3 +261,4 @@ D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\out\api.deps.json
 D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\out\api.runtimeconfig.json
 D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\out\appsettings.Development.json
 D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\out\appsettings.json
+D:\desKtop_trash\MadProjects\api\bin\Debug\net8.0\secrets.json

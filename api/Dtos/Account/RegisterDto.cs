@@ -10,6 +10,10 @@ namespace api.Dtos.Account
     {
         [Required]
         public string? Username { get; set; }
+        public string? Firstname { get; set; }
+        public string? Secondname { get; set; }
+        public string? LastName { get; set; }
+        public string? Group {get; set; }
         [Required]
         [EmailAddress]
         public string? Email { get; set; }
