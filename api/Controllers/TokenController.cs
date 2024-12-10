@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using api.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -16,10 +17,12 @@ namespace api.Controllers
     public class TokenController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly ApplicationDBContext _context;
 
-        public TokenController(IConfiguration configuration)
+        public TokenController(IConfiguration configuration, ApplicationDBContext context)
         {
             _configuration = configuration;
+            _context = context;
         }
 
         [HttpPost("decode")]
@@ -57,8 +60,9 @@ namespace api.Controllers
 
                 if (validatedToken is JwtSecurityToken jwtToken)
                 {
-                    var claims = jwtToken.Claims.Select(c => new { c.Type, c.Value }).ToList();
-                    return Ok(new { Valid = true, Claims = claims });
+                    var emailClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+                    return Ok(_context.Users.FindAsync(emailClaim));
                 }
 
                 return Unauthorized("Invalid token.");
