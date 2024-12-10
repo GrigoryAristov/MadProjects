@@ -23,11 +23,6 @@ var dbPassword = secrets["Database"]?["Password"]?.ToString();
 var signingKey = secrets["JWT"]?["SigningKey"]?.ToString();
 var certPassword = secrets["Certificate"]?["Password"]?.ToString();
 
-// var certPath = Path.Combine(builder.Environment.ContentRootPath, "/home/keystore.p12");
-// var certPassword = "188348";
-
-// var certificate = new X509Certificate2(certPath, certPassword);
-
 var certPath = Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["Certificate:Path"]);
 var certificate = new X509Certificate2(certPath, certPassword);
 
