@@ -61,8 +61,9 @@ namespace api.Controllers
                 if (validatedToken is JwtSecurityToken jwtToken)
                 {
                     var emailClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+                    var repo = _context.Users.FindAsync(emailClaim);
 
-                    return Ok(_context.Users.FindAsync(emailClaim));
+                    return Ok(repo);
                 }
 
                 return Unauthorized("Invalid token.");

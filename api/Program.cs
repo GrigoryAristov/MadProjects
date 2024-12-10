@@ -169,9 +169,10 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins("http://localhost:3000", "https://kaelesty.ru")
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
 });
 
@@ -191,6 +192,7 @@ if (app.Environment.IsDevelopment())
     );
 }
 
+app.UseCors("Cors");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
