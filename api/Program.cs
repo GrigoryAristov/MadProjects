@@ -167,11 +167,11 @@ builder.WebHost.UseKestrel(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("Cors", policy =>
     {
-        policy.WithOrigins("http://localhost:3000", "https://kaelesty.ru")
-              .AllowAnyMethod()
-              .AllowAnyHeader()
+        policy.WithOrigins("http://localhost:3000", "https://kaelesty.ru") 
+              .AllowAnyMethod()  
+              .AllowAnyHeader() 
               .AllowCredentials();
     });
 });
