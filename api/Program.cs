@@ -157,7 +157,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 // HTTPS settings
 builder.WebHost.UseKestrel(options =>
 {
-    options.ListenAnyIP(5050);   // HTTP порт
+    //options.ListenAnyIP(5050);   // HTTP порт
     options.ListenAnyIP(5000, listenOptions =>
     {
         listenOptions.UseHttps(certificate);
